@@ -85,13 +85,7 @@ export function Navbar({ brandName, routes, action }) {
 Navbar.defaultProps = {
   brandName: "Blacked IPs",
   action: (
-    <a
-      href="/request-demo"
-    >
-      <Button variant="gradient" size="sm" fullWidth>
-        Request Demo
-      </Button>
-    </a>
+    
   ),
 };
 

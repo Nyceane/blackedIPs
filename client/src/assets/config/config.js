@@ -13,7 +13,7 @@ const envVarsSchema = Joi.object()
       .required().default("development"),
     REACT_APP_API_URL: Joi.string()
       .allow("")
-      .default("http://localhost:8080")
+      .default("https://server-blackedips.bunnyenv.com")
       .description("BACKEND API"),
     // REACT_APP_STRIPE_PUBLIC_KEY: Joi.string().required().description('Stripe public key'),
     REACT_APP_USERS_PER_PAGE: Joi.number()
