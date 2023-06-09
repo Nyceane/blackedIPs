@@ -1,6 +1,7 @@
 // Initialize the agent at application startup.
 const fpLoad = import('https://openfpcdn.io/fingerprintjs/v3').then(FingerprintJS => FingerprintJS.load())
 
+console.log('only load once')
 // Get the visitor identifier when you need it.
 fpLoad
   .then(fp => fp.get())

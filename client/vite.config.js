@@ -18,9 +18,9 @@ export default defineConfig({
   },
 });
 
+
 production
 */
-
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -29,7 +29,7 @@ export default defineConfig({
    server: {
     proxy: {
       "/v1": {
-        target: "https://server-blackedips.bunnyenv.com/",
+        target: "https://server-blackedips.bunnyenv.com",
         changeOrigin: true,
         secure: false,
       },
