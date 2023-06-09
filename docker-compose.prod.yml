@@ -1,0 +1,8 @@
+version: '3'
+
+services:  
+  server:
+    ports:
+      - '80:80'
+    container_name: blackips-server-prod
+    command: yarn start
