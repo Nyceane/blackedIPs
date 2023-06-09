@@ -84,9 +84,6 @@ export function Navbar({ brandName, routes, action }) {
 
 Navbar.defaultProps = {
   brandName: "Blacked IPs",
-  action: (
-    
-  ),
 };
 
 Navbar.propTypes = {
