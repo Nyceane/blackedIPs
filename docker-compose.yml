@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  server:
+    restart: always
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: rocket/server
+    container_name: rocket-server-prod
+    networks:
+      - app-network
+
+  client:
+    restart: always
+    image: rocket/client
+    container_name: rocket-client-prod
+    volumes:
+      - web-root:/var/www/html
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    links: 
+      - server
+    networks:
+      - app-network
+
+  certbot:
+    image: certbot/certbot
+    container_name: rocket-certbot
+    volumes:
+      - web-root:/var/www/html
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    depends_on:
+      - client
+    command: certonly --webroot --webroot-path=/var/www/html --email peter@usereq.com --agree-tos --no-eff-email --force-renewal -d blackedips.com -d www.blackedips.com
+
+volumes:
+  dbdata:
+  certbot-etc:
+  certbot-var:
+  web-root:
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  server:
+    restart: always
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: blackips/server
+    container_name: blackips-server-prod
+    volumes:
+      - .:/usr/src/node-app
+    networks:
+      - app-network
+    ports:
+      - '80:80'
+networks:
+  app-network:
+    driver: bridge

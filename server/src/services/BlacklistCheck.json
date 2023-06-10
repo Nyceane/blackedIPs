@@ -1,0 +1,105 @@
+{
+    "contractName": "BlacklistCheck",
+    "abi": [
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "isBlacklisted",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x740ea4fd"
+        },
+        {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "ip",
+                    "type": "string"
+                },
+                {
+                    "name": "fingerprint",
+                    "type": "string"
+                }
+            ],
+            "name": "requestBlacklistStatus",
+            "outputs": [
+                {
+                    "name": "requestId",
+                    "type": "bytes32"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "signature": "0x46e57c98"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_requestId",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "_isBlacklisted",
+                    "type": "bool"
+                }
+            ],
+            "name": "fulfill",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "signature": "0xe9fad8ee"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "source",
+                    "type": "string"
+                }
+            ],
+            "name": "stringToBytes32",
+            "outputs": [
+                {
+                    "name": "result",
+                    "type": "bytes32"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function",
+            "signature": "0x450db8da"
+        }
+    ],
+    "networks": {
+        "5777": {
+            "events": {},
+            "links": {},
+            "address": "0x6090149792dAAeE9D1D568c9f9a6F6B46AA29eFD",
+            "transactionHash": ""
+        }
+    },
+    "schemaVersion": "3.0.0",
+    "updatedAt": "2023-06-07T00:00:00.000Z",
+    "devdoc": {
+        "methods": {}
+    },
+    "userdoc": {
+        "methods": {}
+    }
+}

@@ -1,0 +1,14 @@
+# Dependencies
+node_modules
+test.service.js
+
+# yarn error logs
+yarn-error.log
+
+# Environment varibales
+.env*
+!.env*.example
+gpt.py
+
+# Code coverage
+coverage
