@@ -378,13 +378,15 @@ const testChainLink = async (userid, ip, fingerprint) => {
   // Create an account object from the private key.
   const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 
+  const isBlocked;
   // Sign the transaction.
   const signedTransaction = await account.signTransaction(rawTransaction);
  // Wrap sendSignedTransaction in a promise.
   let transactionResult = await new Promise((resolve, reject) => {
     web3.eth.sendSignedTransaction(signedTransaction.rawTransaction)
-      .on('receipt', (receipt) => {
+      .on('receipt', async (receipt) => {
         // Resolve the promise when the receipt is available.
+        isBlocked = await IpFingerprintCheck.methods.isBlocked().call();
         resolve(receipt);
       })
       .on('error', (error) => {
@@ -393,7 +395,6 @@ const testChainLink = async (userid, ip, fingerprint) => {
       });
   });
 
-  const isBlocked = await IpFingerprintCheck.methods.isBlocked().call();
   ret.message = "IsBlocked:" + isBlocked;
   ret.url = "https://sepolia.etherscan.io/tx/" + signedTransaction.transactionHash;
 
