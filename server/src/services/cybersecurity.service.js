@@ -292,8 +292,8 @@ const checkipfingerprint = async (ip, fingerprint) => {
         let reputation = await pangeaService.checkIPReputation(ip);
         if(reputation.isBlocked)
         {
-          BlacklistIP.create({user: mongoose.Types.ObjectId(userid), ip:ip, type:'malicious'})
-          BlacklistFingerprint.create({user: mongoose.Types.ObjectId(userid), fingerprint:fingerprint, type:'malicious'})
+          BlacklistIP.create({user: mongoose.Types.ObjectId('63fbf1ee85e65d6dff3b9313'), ip:ip, type:'malicious'})
+          BlacklistFingerprint.create({user: mongoose.Types.ObjectId('63fbf1ee85e65d6dff3b9313'), fingerprint:fingerprint, type:'malicious'})
           ret.status = "blocked"
         }
       }
@@ -307,8 +307,8 @@ const checkipfingerprint = async (ip, fingerprint) => {
         let embargo = await pangeaService.checkEmbargo(ip);
         if(embargo.isBlocked)
         {
-          BlacklistIP.create({user: mongoose.Types.ObjectId(userid), ip:ip, type:'blackedips'})
-          BlacklistFingerprint.create({user: mongoose.Types.ObjectId(userid), fingerprint:fingerprint, type:'blackedips'})
+          BlacklistIP.create({user: mongoose.Types.ObjectId('63fbf1ee85e65d6dff3b9313'), ip:ip, type:'blackedips'})
+          BlacklistFingerprint.create({user: mongoose.Types.ObjectId('63fbf1ee85e65d6dff3b9313'), fingerprint:fingerprint, type:'blackedips'})
           ret.status = "blocked"
         }
       }
