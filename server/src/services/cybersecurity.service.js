@@ -380,12 +380,18 @@ const testChainLink = async (userid, ip, fingerprint) => {
 
   // Sign the transaction.
   const signedTransaction = await account.signTransaction(rawTransaction);
-  // Send the signed transaction.
-  let transactionResult = await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction)
-      .on('receipt', async (receipt) => {
-          //console.log(receipt);
+ // Wrap sendSignedTransaction in a promise.
+  let transactionResult = await new Promise((resolve, reject) => {
+    web3.eth.sendSignedTransaction(signedTransaction.rawTransaction)
+      .on('receipt', (receipt) => {
+        // Resolve the promise when the receipt is available.
+        resolve(receipt);
       })
-      .on('error', console.error);
+      .on('error', (error) => {
+        // Reject the promise if there's an error.
+        reject(error);
+      });
+  });
 
   const isBlocked = await IpFingerprintCheck.methods.isBlocked().call();
   ret.message = "IsBlocked:" + isBlocked;
