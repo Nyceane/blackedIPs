@@ -378,7 +378,7 @@ const testChainLink = async (userid, ip, fingerprint) => {
   // Create an account object from the private key.
   const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 
-  const isBlocked;
+  let isBlocked;
   // Sign the transaction.
   const signedTransaction = await account.signTransaction(rawTransaction);
  // Wrap sendSignedTransaction in a promise.
