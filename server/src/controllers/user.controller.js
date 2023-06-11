@@ -48,9 +48,9 @@ const updateUser = catchAsync(async (req, res) => {
     req.body.isEmailVerified = false;
   }
 
-  if(req.body.password && userOld.password != user.body.password)
+  if(req.body.password && userOld.password != req.body.password)
   {
-    await pangeaService.updateUser(userOld.email, userOld.password, user.body.password)
+    await pangeaService.updateUser(userOld.email, userOld.password, req.body.password)
   }
 
   const user = await userService.updateUser(userOld, req.body);

@@ -22,7 +22,7 @@ const loginUserWithEmailAndPassword = async (email, password) => {
   let pangeaLogin = await pangeaService.login(email, password);
   console.log(pangeaLogin);
   if (!pangeaLogin || pangeaLogin === "") {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password from pangea');
   }
   
   return user;

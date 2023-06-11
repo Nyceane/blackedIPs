@@ -5,6 +5,7 @@ require('events').EventEmitter.defaultMaxListeners = 20; // or another number th
 
 const test = async () => {
 	console.log('doh')
+	return;
 	const spaceandtimeService = require('./spaceandtime.service');
 	spaceandtimeService.insertData("TEST", "TEST");
 

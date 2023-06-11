@@ -52,8 +52,11 @@ export function Chainlink() {
           </Typography>
         </CardHeader>
         <CardBody className="p-4 text-center">
-          <Typography variant="h4" color="blue-gray">
+          <Typography variant="h4">
             Test Chainlink
+          </Typography>
+          <Typography color="blue-gray">
+            The raw private key is not be stored in our database, only encrypted version through Pangea
           </Typography>
           <Formik
             initialValues={{

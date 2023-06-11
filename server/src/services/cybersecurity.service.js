@@ -347,22 +347,20 @@ const checkipfingerprint = async (ip, fingerprint) => {
 }
 
 const testChainLink = async (userid, ip, fingerprint) => {
-  let ret = {};
   let user = await userService.getUserById(mongoose.Types.ObjectId(userid));
 
-  if(!user.walletPublicKey || !user.walletPrivateKey)
-  {
-    ret.message = "wallet not present, please go to settings and update wallet"
+  if (!user.walletPublicKey || !user.walletPrivateKey) {
+    throw new Error("wallet not present, please go to settings and update wallet");
   }
 
   // Contract details.
   const abi = abiService.checkIPFingerprintABI;
-  const contractAddress = '0x0328258505591ce3d5Df93ecf33057ff3E568eA9';  // Replace with your contract address if you want
+  const contractAddress = '0x04D28C52920E650ddfD3F88eCC50701171522cF1';
 
   // Account details.
   const accountAddress = user.walletPublicKey;
-  const privateKey = await pangeaService.retrieveCryptoWalletKey(user.walletPrivateKey)
-  const web3 = new Web3('https://sepolia.infura.io/v3/8df545e71d7640ba80eee40d96bea508');
+  const privateKey = await pangeaService.retrieveCryptoWalletKey(user.walletPrivateKey);
+  const web3 = new Web3(new Web3.providers.WebsocketProvider('wss://sepolia.infura.io/ws/v3/8df545e71d7640ba80eee40d96bea508'));
 
   // Create the contract instance.
   const IpFingerprintCheck = new web3.eth.Contract(abi, contractAddress);
@@ -371,46 +369,56 @@ const testChainLink = async (userid, ip, fingerprint) => {
   const transaction = IpFingerprintCheck.methods.checkIPFingerprint(ip, fingerprint);
 
   const [gas, gasPrice, nonce] = await Promise.all([
-      transaction.estimateGas({ from: accountAddress }),
-      web3.eth.getGasPrice(),
-      web3.eth.getTransactionCount(accountAddress)
+    transaction.estimateGas({ from: accountAddress }),
+    web3.eth.getGasPrice(),
+    web3.eth.getTransactionCount(accountAddress)
   ]);
 
   // Create a raw transaction object.
   const rawTransaction = {
-      from: accountAddress,
-      gasPrice: web3.utils.toHex(gasPrice),
-      gasLimit: web3.utils.toHex(gas),
-      to: contractAddress,
-      data: transaction.encodeABI(),
-      nonce: web3.utils.toHex(nonce)
+    from: accountAddress,
+    gasPrice: web3.utils.toHex(gasPrice),
+    gasLimit: web3.utils.toHex(gas),
+    to: contractAddress,
+    data: transaction.encodeABI(),
+    nonce: web3.utils.toHex(nonce)
   };
 
   // Create an account object from the private key.
   const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 
-  let isBlocked;
   // Sign the transaction.
   const signedTransaction = await account.signTransaction(rawTransaction);
- // Wrap sendSignedTransaction in a promise.
-  let transactionResult = await new Promise((resolve, reject) => {
-    web3.eth.sendSignedTransaction(signedTransaction.rawTransaction)
-      .on('receipt', async (receipt) => {
-        // Resolve the promise when the receipt is available.
-        isBlocked = await IpFingerprintCheck.methods.isBlocked().call();
-        resolve(receipt);
-      })
-      .on('error', (error) => {
-        // Reject the promise if there's an error.
-        reject(error);
+
+  // Send the transaction and return the promise.
+  const transactionResult = web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
+
+  // Return a promise that resolves when the RequestData event is emitted.
+  return new Promise((resolve, reject) => {
+    transactionResult.on('transactionHash', async () => {
+      IpFingerprintCheck.events.RequestData({
+        fromBlock: 'latest'
+      }, async function (error, event) {
+        if (error) {
+          console.log('error');
+          console.log(error);
+          reject(error);
+        } else {
+          // Get result using requestId
+          console.log('got this!');
+          console.log(event.returnValues);
+          const isBlocked = await IpFingerprintCheck.methods.getResult(event.returnValues.requestId).call();
+          console.log("Result: " + JSON.stringify(isBlocked, null, 2));
+          resolve({
+            message: "IsBlocked:" + isBlocked,
+            url: "https://sepolia.etherscan.io/tx/" + event.transactionHash
+          });
+        }
       });
+    });
   });
-
-  ret.message = "IsBlocked:" + isBlocked;
-  ret.url = "https://sepolia.etherscan.io/tx/" + signedTransaction.transactionHash;
-
-  return ret;
 }
+
 
 module.exports = {
   addVisit,

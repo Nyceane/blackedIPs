@@ -4,21 +4,10 @@ pragma solidity ^0.8.0;
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
 
-/**
- * Request testnet LINK and ETH here: https://faucets.chain.link/
- * Find information on LINK Token Contracts and get the latest ETH and LINK faucets here: https://docs.chain.link/docs/link-token-contracts/
- */
-
-/**
- * THIS IS AN EXAMPLE CONTRACT WHICH USES HARDCODED VALUES FOR CLARITY.
- * THIS EXAMPLE USES UN-AUDITED CODE.
- * DO NOT USE THIS CODE IN PRODUCTION.
- */
-
 contract IpFingerprintCheck is ChainlinkClient, ConfirmedOwner {
     using Chainlink for Chainlink.Request;
 
-    bool public isBlocked;
+    mapping(bytes32 => bool) public results;
     bytes32 private jobId;
     uint256 private fee;
 
@@ -45,7 +34,7 @@ contract IpFingerprintCheck is ChainlinkClient, ConfirmedOwner {
         req.add("get", url);
         req.add("path", "isBlocked");
 
-        return sendChainlinkRequest(req, fee);
+        requestId = sendChainlinkRequest(req, fee);
     }
 
     function fulfill(
@@ -53,7 +42,11 @@ contract IpFingerprintCheck is ChainlinkClient, ConfirmedOwner {
         bool _isBlocked
     ) public recordChainlinkFulfillment(_requestId) {
         emit RequestData(_requestId, _isBlocked);
-        isBlocked = _isBlocked;
+        results[_requestId] = _isBlocked;
+    }
+
+    function getResult(bytes32 _requestId) public view returns (bool) {
+        return results[_requestId];
     }
 
     function withdrawLink() public onlyOwner {
