@@ -3,7 +3,7 @@
   "version": "3.1.0",
   "description": "BlackedIPs SaaS Boilerplate",
   "main": "src/index.js",
-  "author": "Chetan Mittal",
+  "author": "Peter Ma",
   "engines": {
     "node": ">=12.0.0"
   },
@@ -46,6 +46,7 @@
     "prettier"
   ],
   "dependencies": {
+    "@biscuit-auth/biscuit-wasm": "^0.4.0",
     "@chainlink/contracts": "^0.6.1",
     "@opensearch-project/opensearch": "^1.2.0",
     "bcryptjs": "^2.4.3",
@@ -79,6 +80,8 @@
     "stripe": "^8.136.0",
     "swagger-jsdoc": "4.2.0",
     "swagger-ui-express": "^4.4.0",
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1",
     "validator": "^13.7.0",
     "web3": "^1.10.0",
     "winston": "^3.2.1",

@@ -8,3 +8,4 @@ module.exports.teamService = require('./team.service');
 module.exports.cybersecurityService = require('./cybersecurity.service');
 module.exports.pangeaService = require('./pangea.service');
 module.exports.bunnyshellService = require('./bunnyshell.service');
+module.exports.spaceandtimeService = require('./spaceandtime.service');

@@ -5,6 +5,7 @@ const opensearch = require('../opensearch');
 const sageMakerService = require('./sagemaker.service');
 const pangeaService = require('./pangea.service');
 const userService = require('./user.service');
+const spaceandtimeService = require('./spaceandtime.service');
 const abiService = require('./abi.service');
 const { BlacklistIP, BlacklistFingerprint, Visit } = require('../models');
 const Web3 = require('web3'); 
@@ -13,6 +14,15 @@ require('events').EventEmitter.defaultMaxListeners = 20; // or another number th
 const addVisit = async (userid, ip, fingerprint) => {
   let ret = {};
   await Visit.create({user: mongoose.Types.ObjectId(userid), ip:ip, fingerprint:fingerprint})
+
+  try
+  {
+    spaceandtimeService.insertData(ip, fingerprint);
+  }
+  catch(e)
+  {
+
+  }
   //Optionally insert into opensearch for AWS, which is used for training additional data
   //opensearch.addVisitData({user: userid, ip:ip, fingerprint:fingerprint})
 

@@ -33,6 +33,11 @@ const envVarsSchema = Joi.object()
     PANGEA_DOMAIN: Joi.string().description('Pangea Domain'),
     ETH_ACCOUNT_ADDRESS: Joi.string().description('Pangea Embargo Key'),
     ETH_PRIVATE_KEY: Joi.string().description('Pangea Domain'),
+    SPACE_AND_TIME_PUBLIC_KEY: Joi.string().description('Space And Time Pub Key'),
+    SPACE_AND_TIME_PRIVATE_KEY: Joi.string().description('Space And Time Priv Key'),
+    SPACE_AND_TIME_USERID: Joi.string().description('Space And Time userId'),
+    SPACE_AND_TIME_URL: Joi.string().description('Space And Time url'),
+    SPACE_AND_TIME_BISCUIT: Joi.string().description('Space And Time biscuit'),
   })
   .unknown();
 
@@ -81,5 +86,13 @@ module.exports = {
   eth: {
     account: envVars.NODE_ENV === 'production' ? envVars.ETH_ACCOUNT_ADDRESS : envVars.ETH_ACCOUNT_ADDRESS,
     private: envVars.NODE_ENV === 'production' ? envVars.ETH_PRIVATE_KEY : envVars.ETH_PRIVATE_KEY,
-  }
+  },
+  space_and_time:{
+    url: envVars.NODE_ENV === 'production' ? envVars.SPACE_AND_TIME_URL : envVars.SPACE_AND_TIME_URL,
+    public_key: envVars.NODE_ENV === 'production' ? envVars.SPACE_AND_TIME_PUBLIC_KEY : envVars.SPACE_AND_TIME_PUBLIC_KEY,
+    private_key: envVars.NODE_ENV === 'production' ? envVars.SPACE_AND_TIME_PRIVATE_KEY : envVars.SPACE_AND_TIME_PRIVATE_KEY,
+    userId: envVars.NODE_ENV === 'production' ? envVars.SPACE_AND_TIME_USERID : envVars.SPACE_AND_TIME_USERID,
+    biscuit: envVars.NODE_ENV === 'production' ? envVars.SPACE_AND_TIME_BISCUIT : envVars.SPACE_AND_TIME_BISCUIT,
+  
+  },
 };
