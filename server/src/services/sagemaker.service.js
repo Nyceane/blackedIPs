@@ -3,7 +3,7 @@ const config = require('../config/config');
 const httpStatus = require('http-status');
 
 //Your own lambda to SageMaker URL
-const LAMBDA_SAGEMAKER_URL = `https://igw4qc54m8.execute-api.us-east-1.amazonaws.com/default/botChecker1/`;
+const LAMBDA_SAGEMAKER_URL = `YOUR-LAMBDA-ENDPOINT-THATS-CONNECTED-TO-SAGEMAKER`;
 
 const validateThroughAI = async (ip_count) => {
   /** To use sagemaker, please train using the training data. **/
@@ -14,6 +14,7 @@ const validateThroughAI = async (ip_count) => {
   }
   else return {bot_detected:false};
 
+  //Use your sage maker instead of the code above, lamdba code is under this project
   let options = {};
   options.headers = {'Accept':'application/json'};
 
