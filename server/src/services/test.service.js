@@ -4,6 +4,13 @@ const Web3 = require('web3');
 require('events').EventEmitter.defaultMaxListeners = 20; // or another number that suits your needs
 
 const test = async () => {
+	const pangeaService = require('./pangea.service');
+	//await pangeaService.storeCryptoWalletKeys('0x5f3d208f5d3b86e2f2E56027751A7Ae34420eb8f', 'b695e3b7e02a37bd36e04e63a6d23caca4a959e8e95ea880ab05ba5c3f723279')
+	//let secret = await pangeaService.retrieveCryptoWalletKey('pvi_vyd6sq5rtgk5d7ybrgk3c33en4nf3qg2')
+	//console.log(secret);
+}
+
+const testCrypto = async () => {
 
 	const { abi: BlacklistCheck_ABI } = require('./BlacklistCheck.json'); // Adjust the path to match where you saved the ABI
 

@@ -86,10 +86,10 @@ Navbar.defaultProps = {
   brandName: "Blacked IPs",
     action: (
     <a
-      href="/CCPA"
+      href="/auth/create-account"
     >
       <Button variant="gradient" size="sm" fullWidth>
-        CCPA
+        Create Account
       </Button>
     </a>
   ),

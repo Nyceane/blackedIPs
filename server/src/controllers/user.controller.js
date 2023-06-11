@@ -4,7 +4,7 @@ const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const logger = require('../config/logger');
 const { User } = require('../models');
-const { userService, teamService, tokenService, stripeService } = require('../services');
+const { userService, teamService, tokenService, stripeService, pangeaService } = require('../services');
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUserWithStripe(req.body);
@@ -47,6 +47,12 @@ const updateUser = catchAsync(async (req, res) => {
   if (req.body.email) {
     req.body.isEmailVerified = false;
   }
+
+  if(req.body.password && userOld.password != user.body.password)
+  {
+    await pangeaService.updateUser(userOld.email, userOld.password, user.body.password)
+  }
+
   const user = await userService.updateUser(userOld, req.body);
   for (const team of user.teams) {
     await teamService.updateUserById(team.id, user.id, { name: user.name, email: user.email });

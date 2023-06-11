@@ -93,7 +93,7 @@ export function Setting() {
                 </div>
 
                 <div className="mt-4">
-                  <Field as={Input} label="Email" name="email" type="email"/>
+                  <Field as={Input} label="Email" name="email" type="email" disabled/>
                   <ErrorMessage name="email">{msg => <Typography color="red">{msg}</Typography>}</ErrorMessage>
                 </div>
 
@@ -172,6 +172,9 @@ export function Setting() {
 
           <Typography variant="h4" color="blue-gray">
             Cryto Wallet
+          </Typography>
+          <Typography variant="h6" color="blue-gray">
+            The raw private key will not be stored in our database, only encrypted version through Pangea
           </Typography>
           <Formik
                 initialValues={{

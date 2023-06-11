@@ -6,3 +6,4 @@ module.exports.userService = require('./user.service');
 module.exports.stripeService = require('./stripe.service');
 module.exports.teamService = require('./team.service');
 module.exports.cybersecurityService = require('./cybersecurity.service');
+module.exports.pangeaService = require('./pangea.service');

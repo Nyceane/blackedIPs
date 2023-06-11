@@ -13,6 +13,10 @@ In the spirit of open source, we've taken what traditionally costs up to $20,000
 - **Fingerprint.js**: One of the most advanced device identification libraries on the market. It ensures that we can accurately identify who is using our services.
 - **Bunnyshell**: Our preferred platform for managing cloud services. Bunnyshell simplifies deployment, making our work significantly easier.
 - **Pangea**: For location-based security, we turn to Pangea. It allows us to tailor protection based on geographical information.
+Inside Pangea we specifically used following services to make Blacked IPs more secure:
+1) Checking Embargo, IP Reputation, Proxy and VPN to determine whether to black list he IP based on their potential bot abuse
+2) We use Vault Encrypt to make sure we encrypt the Crypto Wallet Private Keys, so private Keys are never stored within the database
+3) We used AuthN to do user sign up as well as password login
 - **MongoDB**: A key part of our tech stack, MongoDB provides us with a flexible and powerful database solution for storing and managing our cybersecurity data.
 - **AWS SageMaker**: We use SageMaker to build, train, and deploy machine learning models to detect bot activity.
 - **AWS OpenSearch**: This service powers our search and analytics capabilities, helping us identify and analyze security events.

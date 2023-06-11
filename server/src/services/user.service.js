@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const { User } = require('../models');
 const stripeService = require('./stripe.service');
 const ApiError = require('../utils/ApiError');
-
+const pangeaService = require('./pangea.service');
 /**
  * Create a user
  * @param {Object} userBody
@@ -29,6 +29,13 @@ const createUserWithStripe = async (userBody) => {
   const user = await User.create(userBody);
   const stripeUser = await stripeService.createCustomer(userBody.name, userBody.email);
   Object.assign(user, {stripeId: stripeUser.id});
+  let pangeaId = await pangeaService.createUser(userBody.email, userBody.password, userBody.name, stripeUser.id);
+  console.log(pangeaId);
+  if(pangeaId)
+  {
+    Object.assign(user, {pangeaId: pangeaId});
+  }
+
   await user.save();
   return user;
 };
@@ -112,6 +119,13 @@ const updateUserById = async (userId, updateBody) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
+
+  //when update wallet, we put wallet key to private
+  if(updateBody.walletPublicKey && updateBody.walletPrivateKey)
+  {
+    updateBody.walletPrivateKey = await pangeaService.storeCryptoWalletKey(updateBody.walletPublicKey, updateBody.walletPrivateKey, userId)
+  }
+
   user = await updateUser(user, updateBody);
   return user;
 };
@@ -123,12 +137,19 @@ const updateUserById = async (userId, updateBody) => {
  * @returns {Promise<User>}
  */
 const updateUser = async (user, updateBody) => {
+  console.log(updateBody.walletPublicKey + user._id);
   if(updateBody.teams) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Cannot update user teams');
   }
   if (updateBody.email && (await User.isEmailTaken(updateBody.email, user.id))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
+
+  if(updateBody.walletPublicKey && updateBody.walletPrivateKey)
+  {
+    updateBody.walletPrivateKey = await pangeaService.storeCryptoWalletKey(updateBody.walletPublicKey, updateBody.walletPrivateKey, user._id)
+  }
+
   Object.assign(user, updateBody);
   await user.save();
   return user;

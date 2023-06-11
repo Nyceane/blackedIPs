@@ -13,7 +13,8 @@ require('events').EventEmitter.defaultMaxListeners = 20; // or another number th
 const addVisit = async (userid, ip, fingerprint) => {
   let ret = {};
   await Visit.create({user: mongoose.Types.ObjectId(userid), ip:ip, fingerprint:fingerprint})
-
+  //Optionally insert into opensearch for AWS, which is used for training additional data
+  //opensearch.addVisitData({user: userid, ip:ip, fingerprint:fingerprint})
 
   let fingerprintBlacklisted = await BlacklistFingerprint.findOne({fingerprint:fingerprint});
   if(fingerprintBlacklisted)
@@ -350,7 +351,7 @@ const testChainLink = async (userid, ip, fingerprint) => {
 
   // Account details.
   const accountAddress = user.walletPublicKey;
-  const privateKey = user.walletPrivateKey;
+  const privateKey = await pangeaService.retrieveCryptoWalletKey(user.walletPrivateKey)
   const web3 = new Web3('https://sepolia.infura.io/v3/8df545e71d7640ba80eee40d96bea508');
 
   // Create the contract instance.

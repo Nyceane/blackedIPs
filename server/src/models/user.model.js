@@ -104,6 +104,12 @@ const userSchema = mongoose.Schema(
         subscriptionType: 'free',
       },
     },
+    pangeaId: {
+      type: String,
+      required: false,
+      unique: true,
+      private: true, // used by the toJSON plugin
+    },
     stripeId: {
       type: String,
       required: true,

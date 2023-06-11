@@ -96,7 +96,7 @@ app.use(errorHandler);
 
 if (config.env !== 'production') {
     const testService = require('./services/test.service');
-  // testService.test();
+    testService.test();
 }
 
 module.exports = app;

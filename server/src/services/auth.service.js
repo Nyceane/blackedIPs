@@ -4,6 +4,7 @@ const userService = require('./user.service');
 const Token = require('../models/token.model');
 const ApiError = require('../utils/ApiError');
 const { tokenTypes } = require('../config/tokens');
+const pangeaService = require('./pangea.service');
 
 /**
  * Login with username and password
@@ -12,10 +13,18 @@ const { tokenTypes } = require('../config/tokens');
  * @returns {Promise<User>}
  */
 const loginUserWithEmailAndPassword = async (email, password) => {
+  //For new user, only if pangea allows you to login we will log you in
   const user = await userService.getUserByEmail(email);
   if (!user || !(await user.isPasswordMatch(password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   }
+
+  let pangeaLogin = await pangeaService.login(email, password);
+  console.log(pangeaLogin);
+  if (!pangeaLogin || pangeaLogin === "") {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
+  }
+  
   return user;
 };
 
