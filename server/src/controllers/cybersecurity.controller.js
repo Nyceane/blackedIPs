@@ -42,6 +42,11 @@ const checkipfingerprint = catchAsync(async (req, res) => {
   {
     ret.isBlocked = true;
   }
+
+                    res.header('Access-Control-Allow-Origin', '*'); 
+                  res.header('Access-Control-Allow-Methods', 'GET');
+                  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+                  res.header('Access-Control-Allow-Credentials', true);
   res.status(httpStatus.OK).send(ret);
 });
 
