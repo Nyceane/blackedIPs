@@ -16,7 +16,7 @@ const keepBunnyShellAlive = async () => {
   {
     console.log(e)
   }
-  
+  /*
     try
   {
     let client = await axios.get( clientUrl);
@@ -26,7 +26,7 @@ const keepBunnyShellAlive = async () => {
   {
     console.log(e)
   }
-  
+  */
 };
 
 module.exports = {
