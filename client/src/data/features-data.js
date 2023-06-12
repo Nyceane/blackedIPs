@@ -10,20 +10,20 @@ export const featuresData = [
     title: "Web3 Enabled",
     icon: StarIcon,
     description:
-      "Web3 enabled, Fanthom-Chainlink integration powering through, turning blacked IPs into transparent, interconnected nodes.",
-  },
-  {
-    color: "red",
-    title: "Free Revisions",
-    icon: ArrowPathIcon,
-    description:
-      "We want to 'Meet You Halfway'. We offer free revisions to ensure our solutions fit your needs.",
+      "Web3 enabled, Pangea Secured moves like the Black Eyed Peas – versatile, interconnected, and ahead of the curve, orchestrating a new era of digital security.",
   },
   {
     color: "teal",
-    title: "Verified Company",
+    title: "Open Sourced",
+    icon: ArrowPathIcon,
+    description:
+      "Just as the Black Eyed Peas remix diverse musical influences, Pangea Secured creatively orchestrates open-source technologies for a groundbreaking symphony in IP, vault, and authentication security.",
+  },
+    {
+    color: "red",
+    title: "Pangea Secured",
     icon: FingerPrintIcon,
     description:
-      "Trust us like fans trust the Black Eyed Peas to deliver great music. We're a verified company in cybersecurity.",
+      "Dancing to the beat of open-source innovation, Pangea unites IP protection, vault security, and authentication in a symphony of digital safety, much like the Black Eyed Peas' harmonious blend of eclectic sounds."",
   },
 ];
