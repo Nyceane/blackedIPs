@@ -7,10 +7,10 @@ import {
 export const featuresData = [
   {
     color: "blue",
-    title: "Awarded Agency",
+    title: "Web3 Enabled",
     icon: StarIcon,
     description:
-      "Just like the Grammy-winning Black Eyed Peas, Blacked IPs is an award-winning agency in cybersecurity.",
+      "Web3 enabled, Fanthom-Chainlink integration powering through, turning blacked IPs into transparent, interconnected nodes.",
   },
   {
     color: "red",

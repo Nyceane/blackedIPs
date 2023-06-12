@@ -110,7 +110,7 @@ export function Home() {
                 Cybersecurity Reinvented.
               </Typography>
               <Typography variant="lead" color="white" className="opacity-80">
-                Welcome to Blacked IPs, home of Boom Boom Pow - your affordable, open-source cybersecurity solution. Leverage the power of top-tier tech including fingerprint.js, Bunnyshell, Pangea, MongoDB, AWS SageMaker and AWS OpenSearch without breaking the bank.
+                Welcome to Blacked IPs, home of Boom Boom Pow - your affordable, open-source cybersecurity solution. Leverage the power of top-tier tech including fingerprint.js, Bunnyshell, Pangea, MongoDB, AWS SageMaker and AWS OpenSearch without breaking the bank.  Chainlink and Fanthom allows you to access the decentralized services via Web3
               </Typography>
             </div>
           </div>
