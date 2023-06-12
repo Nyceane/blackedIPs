@@ -24,7 +24,6 @@ export const featuresData = [
     title: "Pangea Secured",
     icon: FingerPrintIcon,
     description:
-      "Dancing to the beat of open-source innovation, Pangea unites IP protection, vault security, and authentication in a symphony of digital safety, much like the Black Eyed Peas' harmonious blend of eclectic sounds."",
+      "Dancing to the beat of open-source innovation, Pangea unites IP protection, vault security, and authentication in a symphony of digital safety, much like the Black Eyed Peas' harmonious blend of eclectic sounds.",
   }
-  ]
 ];
