@@ -10,35 +10,23 @@ services:
     container_name: rocket-server-prod
     networks:
       - app-network
-
+    ports:
+      - '80:80'
   client:
     restart: always
     image: rocket/client
     container_name: rocket-client-prod
     volumes:
       - web-root:/var/www/html
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-    links: 
-      - server
     networks:
       - app-network
-
-  certbot:
-    image: certbot/certbot
-    container_name: rocket-certbot
-    volumes:
-      - web-root:/var/www/html
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-    depends_on:
-      - client
-    command: certonly --webroot --webroot-path=/var/www/html --email peter@usereq.com --agree-tos --no-eff-email --force-renewal -d blackedips.com -d www.blackedips.com
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
 
 volumes:
-  dbdata:
-  certbot-etc:
-  certbot-var:
   web-root:
 
 networks:
