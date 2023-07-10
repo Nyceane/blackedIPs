@@ -15,7 +15,11 @@ const addVisit = catchAsync(async (req, res) => {
 
   if(req.headers['x-forwarded-for'] || req.socket.remoteAddress)
   {
-    console.log('X-Forwarded-For:' + req.headers['X-Forwarded-For'])
+    console.log('req.ip:' + req.ip)
+    console.log(req.headers['X-Real-IP'])
+    console.log(req.headers['CF-Connecting-IP'])
+    console.log(req.headers['True-Client-IP'])
+    console.log('X-Forwarded-For:' + req.headers['x-forwarded-for'])
     console.log('remote:' + req.socket.remoteAddress)
     ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     ip = convertIpv6ToIpv4(ip);
