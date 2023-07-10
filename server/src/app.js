@@ -111,14 +111,6 @@ app.use(errorConverter);
 // handle error
 app.use(errorHandler);
 
-cron.schedule('*/15 * * * *', () => 
-{
-  bunnyshellService.keepBunnyShellAlive();
-}, {
-     scheduled: true,
-     timezone: 'America/Los_Angeles'
-   });
-
 
 //const testService = require('./services/pangea.service');
 //testService.checkIPVPNorProxy('::ffff:208.184.157.132');

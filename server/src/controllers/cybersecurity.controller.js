@@ -15,14 +15,8 @@ const addVisit = catchAsync(async (req, res) => {
 
   if(req.headers['x-forwarded-for'] || req.socket.remoteAddress)
   {
-    console.log(req.ip)
-    console.log(req.headers)
-    console.log(req.headers['x-forwarded-for'])
-    console.log(req.headers['X-Real-IP'])
-    console.log(req.headers['CF-Connecting-IP'])
-    console.log(req.headers['True-Client-IP'])
-    console.log(req.headers['X-Forwarded-For'])
-    console.log(req.socket.remoteAddress)
+    console.log('X-Forwarded-For:' + req.headers['X-Forwarded-For'])
+    console.log('remote:' + req.socket.remoteAddress)
     ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     ip = convertIpv6ToIpv4(ip);
   }
@@ -66,6 +60,9 @@ const testChainLink = catchAsync(async (req, res) => {
 });
 
 function convertIpv6ToIpv4(ipv6) {
+    if (ip.includes('.')) { // It's an IPv4 address or a mapped IPv4 address
+        return ip.split(':').pop();
+    }
     const reg = /^(\d{1,3}\.){3,3}\d{1,3}$/;
     if (reg.test(ipv6)) {
         return ipv6;
