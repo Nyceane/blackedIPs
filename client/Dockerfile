@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install -g esbuild
-
 RUN npm install
 
 COPY . .
