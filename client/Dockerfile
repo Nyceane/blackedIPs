@@ -1,18 +1,18 @@
-FROM node:alpine as builder
+FROM node:18-slim
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install esbuild@latest
-
 RUN npm install
+
+RUN npm install -g esbuild
 
 COPY . .
 
 RUN npm run build
 
-FROM nginx:alpine
+FROM node:18-slim
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
