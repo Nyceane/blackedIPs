@@ -79,6 +79,23 @@ app.use((req, res, next) => {
   next();
 });
 
+var allowedOrigins = ['https://client-blackedips.bunnyenv.com'];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) === -1) {
+            var msg = 'CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
+    credentials: true,
+}));
+
+
 // v1 api routes
 app.use('/v1', routes);
 
