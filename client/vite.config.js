@@ -11,7 +11,7 @@ export default defineConfig({
       "/v1": {
         target: "https://server-blackedips.bunnyenv.com",
         changeOrigin: true,
-        secure: true,
+        secure: false,
       },
     },
   },
