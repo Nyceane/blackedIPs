@@ -19,6 +19,7 @@ const addVisit = async (userid, ip, fingerprint) => {
   let fingerprintBlacklisted = await BlacklistFingerprint.findOne({fingerprint:fingerprint});
   if(fingerprintBlacklisted)
   {
+    BlacklistFingerprint.create({user: mongoose.Types.ObjectId(userid), fingerprint:fingerprint, type:'blackedips'})
     ret.status = "blocked";
     return ret;
   }
