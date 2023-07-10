@@ -1,4 +1,6 @@
-FROM node:alpine
+FROM node:18-slim
+
+RUN apt-get -y update; apt-get -y install curl
 
 WORKDIR /app
 
