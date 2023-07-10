@@ -64,9 +64,6 @@ const testChainLink = catchAsync(async (req, res) => {
 });
 
 function convertIpv6ToIpv4(ipv6) {
-    if (ip.includes('.')) { // It's an IPv4 address or a mapped IPv4 address
-        return ip.split(':').pop();
-    }
     const reg = /^(\d{1,3}\.){3,3}\d{1,3}$/;
     if (reg.test(ipv6)) {
         return ipv6;
