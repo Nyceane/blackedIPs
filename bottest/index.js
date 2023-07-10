@@ -43,4 +43,4 @@ module.exports = {
   verify: verify
 };
 
-verify('https://blackedips.com/')
+verify('https://client-blackedips.bunnyenv.com/')

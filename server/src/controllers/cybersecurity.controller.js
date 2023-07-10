@@ -22,7 +22,14 @@ const addVisit = catchAsync(async (req, res) => {
     console.log('X-Forwarded-For:' + req.headers['x-forwarded-for'])
     console.log('remote:' + req.socket.remoteAddress)
     ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    ip = convertIpv6ToIpv4(ip);
+    try
+    {
+      ip = convertIpv6ToIpv4(ip);
+    }
+    catch(e)
+    {
+      console.log(e)
+    }
   }
 
   let ret = await cybersecurityService.addVisit(req.params.userid, ip, req.params.key);
