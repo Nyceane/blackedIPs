@@ -6,13 +6,4 @@ export default defineConfig({
   resolve: {
     alias: [{ find: "@", replacement: "/src" }],
   },
-   server: {
-    proxy: {
-      "/v1": {
-        target: "https://server-blackedips.bunnyenv.com",
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
 });

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { envConfig } from '@/configs'
 
-const apiUrl = envConfig.api.url
+const apiUrl = "https://server-blackedips.bunnyenv.com"
 
 const getVisits = () => {
   let payload = {};

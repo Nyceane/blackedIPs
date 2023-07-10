@@ -3,7 +3,7 @@ import { envConfig } from '@/configs'
 
 
 
-const apiUrl = envConfig.api.url
+const apiUrl = "https://server-blackedips.bunnyenv.com"
 
 const getUsers = (page) => {
 	return axios.get(`${apiUrl}/v1/users?limit=${envConfig.users.resultsPerPage}&page=${page}`, {})
