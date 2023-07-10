@@ -27,7 +27,7 @@ console.log(envVars);
 export const envConfig = {
   api: {
     //url: envVars.NODE_ENV === "production" ? envVars.REACT_APP_API_URL : "",
-    url: "https://server-blackedips.bunnyenv.com/"
+    url: "https://server-blackedips.bunnyenv.com"
   },
   stripe: {
     publicKey: envVars.REACT_APP_STRIPE_PUBLIC_KEY,
