@@ -1,5 +1,6 @@
 module.exports.authService = require('./auth.service');
 module.exports.abiService = require('./abi.service');
+module.exports.bigqueryService = require('./bigquery.service');
 module.exports.emailService = require('./email.service');
 module.exports.tokenService = require('./token.service');
 module.exports.userService = require('./user.service');

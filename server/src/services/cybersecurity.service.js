@@ -6,6 +6,7 @@ const sageMakerService = require('./sagemaker.service');
 const pangeaService = require('./pangea.service');
 const userService = require('./user.service');
 const abiService = require('./abi.service');
+const bigqueryService = require('./bigquery.service');
 const { BlacklistIP, BlacklistFingerprint, Visit } = require('../models');
 const Web3 = require('web3'); 
 require('events').EventEmitter.defaultMaxListeners = 20; // or another number that suits your needs
@@ -15,6 +16,9 @@ const addVisit = async (userid, ip, fingerprint) => {
   await Visit.create({user: mongoose.Types.ObjectId(userid), ip:ip, fingerprint:fingerprint})
   //Optionally insert into opensearch for AWS, which is used for training additional data
   //opensearch.addVisitData({user: userid, ip:ip, fingerprint:fingerprint})
+
+  //Optionally insert into big query
+  //bigqueryService.insertIntoBigQuery({user: mongoose.Types.ObjectId(userid), ip:ip, fingerprint:fingerprint})
 
   let fingerprintBlacklisted = await BlacklistFingerprint.findOne({fingerprint:fingerprint});
   if(fingerprintBlacklisted)
