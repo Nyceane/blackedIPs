@@ -4,7 +4,7 @@ const fs = require('fs');
 let bigquery;
 
 const validateCredentials = () => {
-  const credentialPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+  const credentialPath = 'GOOGLE_APPLICATION_CREDENTIALS';
 
   if (!credentialPath) {
     throw new Error('The GOOGLE_APPLICATION_CREDENTIALS environment variable is not set.');
@@ -26,8 +26,8 @@ const validateCredentials = () => {
 validateCredentials();
 
 const insertIntoBigQuery = async (data) => {
-  const datasetId = process.env.BIGQUERY_DATASET_ID;
-  const tableId = process.env.BIGQUERY_TABLE_ID;
+  const datasetId = 'Your BIGQUERY_DATASET_ID';
+  const tableId = 'your BIGQUERY_TABLE_ID';
 
   if (!datasetId || !tableId || !data) {
     throw new Error('BIGQUERY_DATASET_ID, BIGQUERY_TABLE_ID environment variables and data are required');

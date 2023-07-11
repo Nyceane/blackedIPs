@@ -3,10 +3,10 @@ const config = require('../config/config');
 const mongoose = require("mongoose");
 const opensearch = require('../opensearch');
 const sageMakerService = require('./sagemaker.service');
+const automlService = require('./automl.service');
 const pangeaService = require('./pangea.service');
 const userService = require('./user.service');
 const abiService = require('./abi.service');
-const bigqueryService = require('./bigquery.service');
 const { BlacklistIP, BlacklistFingerprint, Visit } = require('../models');
 const Web3 = require('web3'); 
 require('events').EventEmitter.defaultMaxListeners = 20; // or another number that suits your needs
@@ -18,6 +18,7 @@ const addVisit = async (userid, ip, fingerprint) => {
   //opensearch.addVisitData({user: userid, ip:ip, fingerprint:fingerprint})
 
   //Optionally insert into big query
+  //const bigqueryService = require('./bigquery.service');
   //bigqueryService.insertIntoBigQuery({user: mongoose.Types.ObjectId(userid), ip:ip, fingerprint:fingerprint})
 
   let fingerprintBlacklisted = await BlacklistFingerprint.findOne({fingerprint:fingerprint});
@@ -57,8 +58,8 @@ const addVisit = async (userid, ip, fingerprint) => {
   else
   {
     const reg = /^(\d{1,3}\.){3,3}\d{1,3}$/;
-      
-    let aiResult = await sageMakerService.validateThroughAI(ipCount);
+    let aiResult = await automlService.validateThroughAI(ipCount);
+    //let aiResult = await sageMakerService.validateThroughAI(ipCount);
     if(aiResult && aiResult.bot_detected)
     {
       ret.status = "bot";
